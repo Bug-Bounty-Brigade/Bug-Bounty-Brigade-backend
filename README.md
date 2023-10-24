@@ -1,3 +1,4 @@
+
 # Bug-Bounty-Brigade
 
 Bug Bounty Brigade is a vibrant community of cybersecurity professionals and ethical hackers dedicated to enhancing the security of digital systems. Our mission is to cultivate a thriving community of bug hunters, by bug hunters, for bug hunters.
@@ -51,6 +52,7 @@ The Bug-Bounty-Brigade backend service provides the following API endpoints:
 ## API Documentation
 
 The API documentation can be generated using Swagger or similar tools. To generate and host the documentation, you can refer to the code comments for each API endpoint.
+
 
 
 
