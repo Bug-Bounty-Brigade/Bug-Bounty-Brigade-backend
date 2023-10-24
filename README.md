@@ -43,6 +43,12 @@ Follow these steps to set up and run the Bug-Bounty-Brigade backend service:
 
 The Bug-Bounty-Brigade backend service provides the following API endpoints:
 
+### User Routes
+- POST /googlesignin: Perform Google Sign-In and generate a token for the user.
+- GET /getuserdetail/: Fetch user details based on the provided token.
+- GET /logout: Log the user out by clearing their authentication token.
+
+### BlogDataRoute
 - POST /upload/{userId}: Upload a user blog with an image to Cloudinary.
 - GET /fetch/{userId}: Fetch user's blog data.
 - GET /fetchall: Fetch all blog data.
