@@ -1,33 +1,88 @@
 const express = require('express');
 const router = express.Router();
 //use env file
-require('dotenv').config();
+// require('dotenv').config();
 const userBlogData = require('../models/userBlogData.js');
 const GoogleUser = require('../models/Googleuser');
-const cloudinary = require('cloudinary').v2;
-const fileupload=require('express-fileupload');
+// const cloudinary = require('cloudinary').v2;
+// const fileupload=require('express-fileupload');
 
-router.use(fileupload({
-  useTempFiles:true
-}));
+// router.use(fileupload({
+//   useTempFiles:true
+// }));
+// // cloudinary.config({
+// //   cloud_name: process.env.CLOUD_NAME,
+// //   api_key: process.env.API_KEY,
+// //   api_secret: process.env.API_SECRET
+// // });
 // cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.API_SECRET
+//   cloud_name: "dnbjbsbzs",
+//   api_key: "234235216497426",
+//   api_secret: "PrPzz58Dioikd8hjxi8Xla-3JLA"
 // });
-cloudinary.config({
-  cloud_name: "dnbjbsbzs",
-  api_key: "234235216497426",
-  api_secret: "PrPzz58Dioikd8hjxi8Xla-3JLA"
-});
+
+  // router.post('/upload/:userId', async (req, res) => {
+  //   try {
+  //     const userId = req.params.userId;
+  //     console.log(userId);
+  
+  //     // Destructure title and body from the request body
+  //     const { title, body } = req.body;
+  
+  //     // Get the user via userId
+  //     const user = await GoogleUser.findById(userId);
+  
+  //     // Check if the user exists
+  //     if (!user) {
+  //       return res.status(404).send('User not found');
+  //     }
+  
+  //     // Fetch user details
+  //     const email = user.email;
+  //     const fullname = user.fullname;
+  
+  //     // Try to upload the file to Cloudinary
+  //     const file = req.files.photo;
+  //     cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
+  //       if (err) {
+  //         // Handle upload error
+  //         console.error(err);
+  //         return res.status(500).send('Error uploading file to Cloudinary');
+  //       }
+  
+  //       // If the upload is successful
+  //       console.log(result);
+  //       const imgUrl = result.url;
+  
+  //       // Create an object with the image URL and other details
+  //       const obj = {
+  //         imageUrl: imgUrl,
+  //         email: email,
+  //         fullname: fullname,
+  //         userId: userId,
+  //         title: title,
+  //         body: body,
+  //       };
+  
+  //       console.log(obj);
+  //       const item = await userBlogData.create(obj);
+  //       // Send a success response
+  //       res.status(200).send('File Uploaded Successfully');
+  //     });
+  //   } catch (err) {
+  //     // Handle other errors, such as database lookup or unexpected errors
+  //     console.error(err);
+  //     res.status(500).send('Internal Server Error');
+  //   }
+  // });
 
   router.post('/upload/:userId', async (req, res) => {
     try {
       const userId = req.params.userId;
       console.log(userId);
   
-      // Destructure title and body from the request body
-      const { title, body } = req.body;
+      // Destructure title, body, and imageUrl from the request body
+      const { title, body, imageUrl } = req.body;
   
       // Get the user via userId
       const user = await GoogleUser.findById(userId);
@@ -41,40 +96,28 @@ cloudinary.config({
       const email = user.email;
       const fullname = user.fullname;
   
-      // Try to upload the file to Cloudinary
-      const file = req.files.photo;
-      cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
-        if (err) {
-          // Handle upload error
-          console.error(err);
-          return res.status(500).send('Error uploading file to Cloudinary');
-        }
+      // Create an object with the image URL and other details
+      const obj = {
+        imageUrl: imageUrl,
+        email: email,
+        fullname: fullname,
+        userId: userId,
+        title: title,
+        body: body,
+      };
   
-        // If the upload is successful
-        console.log(result);
-        const imgUrl = result.url;
+      console.log(obj);
+      const item = await userBlogData.create(obj);
   
-        // Create an object with the image URL and other details
-        const obj = {
-          imageUrl: imgUrl,
-          email: email,
-          fullname: fullname,
-          userId: userId,
-          title: title,
-          body: body,
-        };
-  
-        console.log(obj);
-        const item = await userBlogData.create(obj);
-        // Send a success response
-        res.status(200).send('File Uploaded Successfully');
-      });
+      // Send a success response
+      res.status(200).send('File Uploaded Successfully');
     } catch (err) {
       // Handle other errors, such as database lookup or unexpected errors
       console.error(err);
       res.status(500).send('Internal Server Error');
     }
   });
+  
   
   router.get('/fetch/:userId', async (req, res) => {
     try {
