@@ -1,3 +1,4 @@
+
 # Bug-Bounty-Brigade
 
 Bug Bounty Brigade is a vibrant community of cybersecurity professionals and ethical hackers dedicated to enhancing the security of digital systems. Our mission is to cultivate a thriving community of bug hunters, by bug hunters, for bug hunters.
@@ -42,6 +43,12 @@ Follow these steps to set up and run the Bug-Bounty-Brigade backend service:
 
 The Bug-Bounty-Brigade backend service provides the following API endpoints:
 
+### User Routes
+- POST /googlesignin: Perform Google Sign-In and generate a token for the user.
+- GET /getuserdetail/: Fetch user details based on the provided token.
+- GET /logout: Log the user out by clearing their authentication token.
+
+### BlogDataRoute
 - POST /upload/{userId}: Upload a user blog with an image to Cloudinary.
 - GET /fetch/{userId}: Fetch user's blog data.
 - GET /fetchall: Fetch all blog data.
@@ -51,6 +58,7 @@ The Bug-Bounty-Brigade backend service provides the following API endpoints:
 ## API Documentation
 
 The API documentation can be generated using Swagger or similar tools. To generate and host the documentation, you can refer to the code comments for each API endpoint.
+
 
 
 
